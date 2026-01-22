@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
-  <!-- ========== Basic Setup ========== -->
   <meta charset="UTF-8" />
-  <base href="/Daisys-Website/">
+
+  <base href="/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/x-icon" href="favicon_circle.ico">
   <title>Privacy Policy</title>
 
-  <!-- ========== Fonts, Icons & Styling ========== -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="styles/styles.css">
 </head>
-  
-  <body>
+
+<body>
 
   <!-- Top Announcement -->
   <div id="announcement-bar-container"></div>
@@ -28,22 +27,24 @@
       <a href="#"><i class="fas fa-phone"></i></a>
       <a href="#"><i class="fas fa-envelope"></i></a>
     </div>
-    <h1 class="header-title"><a href="index.html" class="logo-link">You're So Golden</a></h1>
-    <div class="header-right">
-      <a href="#cart" class="cart-icon"><i class="fas fa-basket-shopping"></i></a>
-      <a id="auth-icon" class="login-icon" href="#" title="User Menu"><i id="auth-icon-symbol" class="fas fa-user"></i></a>
-    </div
 
-     <!-- Basket Preview--> 
-    <div id="basket-preview" class="basket-preview hidden">
-    <!-- Basket contents will be injected here -->
-    </div>
-    
+    <h1 class="header-title">
+      <a href="/" class="logo-link">You're So Golden</a>
+    </h1>
+
+    <div class="header-right">
+      <a href="/basket/" class="cart-icon"><i class="fas fa-basket-shopping"></i></a>
+      <a id="auth-icon" class="login-icon" href="#" title="User Menu">
+        <i id="auth-icon-symbol" class="fas fa-user"></i>
+      </a>
+    </div> <!-- ✅ FIXED: proper closing tag -->
+
+    <!-- Basket Preview -->
+    <div id="basket-preview" class="basket-preview hidden"></div>
+
     <!-- 👤 User Dropdown (dynamic) -->
     <div id="logout-dropdown" class="hidden" style="position:absolute; right:1rem; top:4.2rem; background:white; border:1px solid #ccc; padding:1rem; border-radius:8px; z-index:1000; box-shadow:0 4px 12px rgba(0,0,0,0.1); min-width:160px;">
-      <div id="user-dropdown-content">
-        <!-- Content will be filled in by JS -->
-      </div>
+      <div id="user-dropdown-content"></div>
     </div>
 
   </header>
@@ -52,47 +53,44 @@
   <div id="navigation-bar-container"></div>
 
   <main>
+    <h1>Privacy Policy</h1>
+    <p>At You're So Golden, we take your privacy seriously.</p>
 
-  <h1>Privacy Policy</h1>
-  <p>At You're So Golden, we take your privacy seriously.</p>
+    <h2>What we store</h2>
+    <ul>
+      <li>We use localStorage to save items you add to your basket.</li>
+      <li>We store your cookie choice (accept/reject) in localStorage.</li>
+    </ul>
 
-  <h2>What we store</h2>
-  <ul>
-    <li>We use localStorage to save items you add to your basket.</li>
-    <li>We do not use third-party cookies or trackers.</li>
-  </ul>
+    <h2>Analytics cookies</h2>
+    <p>
+      If you accept analytics cookies, we use Google Analytics 4 to understand how visitors use the site
+      (for example, page views and general usage patterns). This helps us improve the website.
+    </p>
+    <p>
+      Analytics cookies are only used if you press <strong>Accept</strong> on the cookie banner.
+    </p>
 
-  <h2>Why we do it</h2>
-  <p>Basket data is stored only to improve your shopping experience and help you keep track of your items.</p>
+    <h2>Why we do it</h2>
+    <p>Basket data is stored only to improve your shopping experience and help you keep track of your items.</p>
 
-  <h2>Consent</h2>
-  <p>We show you a cookie notice once when you visit. Your choice is stored in your browser's localStorage.</p>
+    <h2>Consent</h2>
+    <p>You can accept or reject analytics cookies in the cookie banner. Your choice is stored in your browser’s localStorage.</p>
 
-  <h2>Contact</h2>
-  <p>If you have any concerns or questions, feel free to <a href="mailto:contact@yoursogolden.com">contact us</a>.</p>
-
+    <h2>Contact</h2>
+    <p>If you have any concerns or questions, feel free to <a href="mailto:contact@yoursogolden.com">contact us</a>.</p>
   </main>
-  
+
   <!-- Footer -->
   <div id="footer-container"></div>
 
   <!-- Load Page Layout -->
   <script src="layout/load-layout.js" type="module"></script>
-    
-  <!-- 'User' Toggle Btn -->
-  <script type="module" src="user-toggle.js"></script>
 
-  <!-- Basket Dropdown Btn -->
-  <script src="basket-dropdown.js" defer></script>
-  
+  <!-- Keep only what this page actually needs -->
   <script type="module" src="firebase.js"></script>
+  <script type="module" src="user-toggle.js"></script>
+  <script src="basket-dropdown.js" defer></script>
 
-  <!-- Admin Features -->
-  <script type="module" src="admin-auth.js"></script>
-
-  <!-- Import Products List -->
-  <script type="module" src="products.js"></script>
-
-  </body>
-  
+</body>
 </html>
