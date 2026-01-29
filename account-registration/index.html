@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ========== Basic Setup ========== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="favicon_circle.ico">
+  <title>Golden By Daisy - Register</title>
+
+  <!-- ========== Fonts, Icons & Styling ========== -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  
+</head>
+  
+<body>
+
+  <!-- Top Announcement -->
+  <div id="announcement-bar-container"></div>
+
+  <!-- Header Section -->
+  <header class="site-header">
+    <h1 class="header-title"><a href="index.html" class="logo-link">Golden By Daisy</a></h1>
+  </header>
+
+  <!-- Navigation Bar -->
+  <div id="navigation-bar-container"></div>
+  
+  <main>
+  <!-- Registration Box -->
+  <div class="register-wrapper">
+  <div class="form-card">
+    <h3>Create Your Account</h3>
+    <form id="register-form">
+      
+      <label for="first-name">First Name</label>
+      <input type="text" id="first-name" placeholder="First Name" required>
+      <label for="last-name">Last Name</label>
+      <input type="text" id="last-name" placeholder="Last Name" required>
+
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Password" required>
+
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+
+      <button type="submit" class="btn-submit">Register</button>
+    </form>
+  </div>
+</div>
+</main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Loading Transition -->
+  <script src="loading.js" defer></script>
+  
+  <!-- Load Page Layout -->
+  <script src="layout/load-layout.js" type="module"></script>
+
+  <!-- Firebase Registration Script -->
+  <script type="module" src="register.js"></script>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Maintenance Page If Toggled In Dashboard -->
+  <script type="module" src="maintenance.js"></script>
+  
+</body>
+</html>
