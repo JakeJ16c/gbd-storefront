@@ -1,8 +1,5 @@
 import { db } from "/firebase.js";
-import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import {collection,getDocs} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 const grid = document.getElementById("product-grid");
 
@@ -46,28 +43,49 @@ async function loadProducts() {
   grid.innerHTML = products.map(renderCard).join("");
 }
 
-function renderCard(p) {
-  const name = escapeHtml(p.name || "Untitled");
-  const price = Number(p.price);
-  const priceText = Number.isFinite(price) ? `£${price.toFixed(2)}` : "";
-  const img = (Array.isArray(p.images) && p.images[0]) ? p.images[0] : "/icon-512.png";
+function renderProductCard(product, { wishlistFilled = false } = {}) {
+  const img = product.images?.[0] || "/icon-512.png";
+  const price = Number(product.price || 0).toFixed(2);
 
-  const stock = Number(p.stock);
-  const outOfStock = Number.isFinite(stock) && stock <= 0;
+  const card = document.createElement("div");
+  card.className = "product-card";
 
-  // Your product page uses ?id=...
-  const href = `/product/?id=${encodeURIComponent(p.id)}`;
+  card.innerHTML = `
+    <div class="product-image-wrap">
+      <img class="product-img" src="${img}" alt="${product.name || "Product"}" />
+      <button class="wishlist-btn" title="Wishlist" aria-label="Wishlist">
+        <i class="${wishlistFilled ? "fa-solid" : "fa-regular"} fa-heart"></i>
+      </button>
+    </div>
 
-  return `
-    <a class="product-card" href="${href}" style="text-decoration:none; color:inherit; position:relative;">
-      <img src="${img}" alt="${name}" loading="lazy">
-      <div style="padding:14px 14px 16px;">
-        <h3 style="margin:0 0 6px; font-size:18px;">${name}</h3>
-        ${priceText ? `<p style="margin:0; font-weight:700;">${priceText}</p>` : ``}
-        ${outOfStock ? `<p style="margin:8px 0 0; color:#b22; font-weight:700;">Out of stock</p>` : ``}
-      </div>
-    </a>
+    <div class="product-info">
+      <h3 class="product-name">${product.name || ""}</h3>
+      <div class="product-price">£${price}</div>
+    </div>
+
+    <div class="product-actions">
+      <button class="btn-secondary add-btn">Add to Basket</button>
+      <button class="btn-primary buy-btn">Buy Now</button>
+    </div>
   `;
+
+  card.querySelector(".product-img").onclick = () => {
+    location.href = `/product/?id=${product.id}`;
+  };
+  card.querySelector(".product-name").onclick = () => {
+    location.href = `/product/?id=${product.id}`;
+  };
+
+  // TODO: wire these to YOUR existing basket + wishlist functions
+  card.querySelector(".add-btn").onclick = () => addToBasket(product);
+  card.querySelector(".buy-btn").onclick = () => buyNow(product);
+
+  card.querySelector(".wishlist-btn").onclick = (e) => {
+    e.stopPropagation();
+    toggleWishlist(product, card.querySelector(".wishlist-btn i"));
+  };
+
+  return card;
 }
 
 function escapeHtml(str) {
