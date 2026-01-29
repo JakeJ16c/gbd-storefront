@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+      
+<!-- ========== Basic Setup ========== -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="favicon_circle.ico" rel="icon" type="image/x-icon"/>
+<title>All Products - Golden By Daisy</title>
+      
+<!-- ========== Fonts, Icons & Styling ========== -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="styles/styles.css" rel="stylesheet"/>
+<link href="styles/responsive.css" rel="stylesheet"/>
+</link></head>
+<body>
+      
+<!-- Top Announcement -->
+<div id="announcement-bar-container"></div>
+<!-- Header Section -->
+<header class="site-header">
+<div class="header-left">
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fas fa-phone"></i></a>
+<a href="#"><i class="fas fa-envelope"></i></a>
+</div>
+<h1 class="header-title"><a class="logo-link" href="/">Golden By Daisy</a></h1>
+<div class="header-right">
+<a class="cart-icon" href="#cart"><i class="fas fa-basket-shopping"></i></a>
+<a class="login-icon" href="login.html" id="auth-icon" title="Login">
+<i class="fas fa-user" id="auth-icon-symbol"></i>
+</a>
+</div>
+<!-- Basket Dropdown -->
+<div id="basket-preview"></div>
+<!-- 👤 User Dropdown (dynamic) -->
+<div class="hidden" id="logout-dropdown" style="position:absolute; right:1rem; top:4.2rem; background:white; border:1px solid #ccc; padding:1rem; border-radius:8px; z-index:1000; box-shadow:0 4px 12px rgba(0,0,0,0.1); min-width:160px;">
+<div id="user-dropdown-content">
+<!-- Content will be filled in by JS -->
+</div>
+</div>
+</header>
+<!-- Navigation Bar -->
+<div id="navigation-bar-container"></div>
+<main>
+<!-- Product Grid -->
+<h2 class="section-title">All Products</h2>
+<!-- Filter UI Trigger -->
+<div class="filter-bar">
+<div class="border-button sort" id="sortButton">
+<i class="fa-solid fa-sort"></i> Sort
+      <div class="dropdown" id="sortDropdown" style="display: none; position: absolute; background: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); padding: 0.5rem;">
+<button>Lowest Price</button>
+<button>Highest Price</button>
+<button>Newest</button>
+<button>Recommended</button>
+</div>
+</div>
+<div class="border-button" onclick="document.getElementById('filterOverlay').classList.add('active')">
+<i class="fa-solid fa-sliders"></i> Filter
+    </div>
+</div>
+<section class="products" id="product-grid">
+<!-- Product cards will be inserted here by products.js -->
+</section>
+</main>
+<!-- Footer -->
+<div id="footer-container"></div>
+<!-- === Filter Modal UI === -->
+<div class="filter-overlay" id="filterOverlay" onclick="event.target === this &amp;&amp; this.classList.remove('active')">
+<div class="filter-content">
+<button class="close-btn" onclick="document.getElementById('filterOverlay').classList.remove('active')">
+        ×
+      </button>
+<h3>Filter Products</h3>
+<div class="filter-section">
+<label>Price Range</label>
+<input id="priceRange" max="100" min="0" oninput="updatePriceLabel()" type="range" value="50"/>
+<div class="range-output" id="priceOutput">£0 - £50</div>
+</div>
+<div class="filter-section">
+<label>Category</label>
+<div class="option-buttons" id="categoryButtons">
+<button>T-Shirts</button>
+<button>Bag Charms</button>
+<button>Key Rings</button>
+</div>
+</div>
+<div class="filter-section">
+<label>Designs</label>
+<div class="option-buttons" id="designButtons">
+<button>Animals</button>
+<button>Flowers</button>
+<button>Others</button>
+</div>
+</div>
+<div class="filter-section">
+<label>Size</label>
+<div class="option-buttons" id="sizeButtons">
+<button>XS</button>
+<button>Small</button>
+<button>Medium</button>
+<button>Large</button>
+<button>XL</button>
+</div>
+</div>
+<div class="action-buttons">
+<button class="clear-btn" onclick="clearSelections()">Clear Selections</button>
+<button class="apply-btn">Apply Filter(s)</button>
+</div>
+</div>
+</div>
+<!-- === Filter Logic Script === -->
+<script>
+    function toggleSelection(e) {
+      if (!e.target.classList.contains('disabled')) {
+        e.target.classList.toggle('selected');
+        updateSizeAvailability();
+      }
+    }
+  
+    function clearSelections() {
+      document.querySelectorAll('.option-buttons button').forEach(btn => btn.classList.remove('selected'));
+      document.getElementById('priceRange').value = 50;
+      updatePriceLabel();
+      updateSizeAvailability();
+    }
+  
+    function updatePriceLabel() {
+      const value = document.getElementById('priceRange').value;
+      document.getElementById('priceOutput').innerText = `£0 - £${value}`;
+    }
+  
+    function updateSizeAvailability() {
+      const categories = document.querySelectorAll('#categoryButtons button.selected');
+      const sizeButtons = document.querySelectorAll('#sizeButtons button');
+  
+      if (categories.length === 0 || [...categories].some(btn => btn.textContent === 'T-Shirts')) {
+        sizeButtons.forEach(btn => btn.classList.remove('disabled'));
+      } else {
+        sizeButtons.forEach(btn => {
+          btn.classList.add('disabled');
+          btn.classList.remove('selected');
+        });
+      }
+    }
+  
+    document.querySelectorAll('#categoryButtons button, #designButtons button, #sizeButtons button').forEach(btn => {
+      btn.addEventListener('click', toggleSelection);
+    });
+  
+    updatePriceLabel();
+    updateSizeAvailability();
+  </script>
+<!-- Loading Transition -->
+<script src="loading.js" defer></script>
+<!-- Load Page Layout -->
+<script src="layout/load-layout.js" type="module"></script>
+<!-- 'User' Toggle Btn -->
+<script src="user-toggle.js" type="module"></script>
+<!-- Basket Dropdown Btn -->
+<script type="module" src="basket-dropdown.js"></script>
+<!-- Fetch Products List -->
+<script src="products.js" type="module"></script>
+<!-- Admin Features -->
+<!-- Cookie Banner -->
+<script src="cookie-banner/load-cookie-banner.js"></script>
+
+<!-- Maintenance Page If Toggled In Dashboard -->
+<script type="module" src="maintenance.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const sortBtn = document.getElementById("sortButton");
+  const dropdown = document.getElementById("sortDropdown");
+
+  sortBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  });
+
+  document.addEventListener("click", function () {
+    dropdown.style.display = "none";
+  });
+
+  dropdown.addEventListener("click", function (e) {
+    e.stopPropagation(); // allow button clicks inside dropdown
+  });
+});
+</script>
+</body>
+</html>
