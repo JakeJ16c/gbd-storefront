@@ -57,15 +57,13 @@ function renderProductCard(product, { wishlistFilled = false } = {}) {
   card.className = "product-card";
 
   card.innerHTML = `
-    <div class="product-image-wrap">
-      <img class="product-img" src="${img}" alt="${escapeHtml(product.name || "Product")}" />
-      <button class="wishlist-btn" title="Wishlist" aria-label="Wishlist">
-        <i class="${wishlistFilled ? "fa-solid" : "fa-regular"} fa-heart"></i>
-      </button>
+    <div class="image-wrap">
+      <img class="product-img" src="${img}" alt="${product.name || "Product"}" />
+      <i class="fa-heart wishlist-icon ${wishlistFilled ? "filled fa-solid" : "fa-regular"}"></i>
     </div>
 
     <div class="product-info">
-      <h3 class="product-name">${escapeHtml(product.name || "")}</h3>
+      <h3 class="product-name">${product.name || ""}</h3>
       <div class="product-price">£${price}</div>
     </div>
 
@@ -75,29 +73,26 @@ function renderProductCard(product, { wishlistFilled = false } = {}) {
     </div>
   `;
 
-  // Open product page
-  const goProduct = () => (location.href = `/product/?id=${product.id}`);
-  card.querySelector(".product-img").onclick = goProduct;
-  card.querySelector(".product-name").onclick = goProduct;
+  // Navigate to product page
+  card.querySelector(".product-img").onclick = () => (location.href = `/product/?id=${product.id}`);
+  card.querySelector(".product-name").onclick = () => (location.href = `/product/?id=${product.id}`);
 
-  // Buttons
-  card.querySelector(".add-btn").onclick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleAddToBasket(product);
-  };
+  // Your existing actions (make sure these exist)
+  card.querySelector(".add-btn").onclick = () => addToBasket(product);
+  card.querySelector(".buy-btn").onclick = () => buyNow(product);
 
-  card.querySelector(".buy-btn").onclick = (e) => {
-    e.preventDefault();
+  // Heart toggle (matches product-detail behaviour)
+  const heartIcon = card.querySelector(".wishlist-icon");
+  heartIcon.onclick = (e) => {
     e.stopPropagation();
-    handleBuyNow(product);
-  };
 
-  card.querySelector(".wishlist-btn").onclick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const icon = card.querySelector(".wishlist-btn i");
-    toggleWishlist(product, icon);
+    const willFill = !heartIcon.classList.contains("filled");
+    heartIcon.classList.toggle("filled", willFill);
+    heartIcon.classList.toggle("fa-solid", willFill);
+    heartIcon.classList.toggle("fa-regular", !willFill);
+
+    // call your wishlist function if you have one
+    if (typeof toggleWishlist === "function") toggleWishlist(product, heartIcon);
   };
 
   return card;
