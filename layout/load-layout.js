@@ -1,37 +1,35 @@
 import { db } from "/firebase.js";
-import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js';
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Single inject function with callback parameter
-  const inject = async (id, file, callback) => {
+  // ONE inject function (works from any page folder)
+  const inject = async (slotId, fileName, callback) => {
+    const slot = document.getElementById(slotId);
+    if (!slot) return;
+
     try {
-      const res = await fetch(file);
-      const html = await res.text();
-      const container = document.getElementById(id);
-      
-      if (container) {
-        container.innerHTML = html;
-        
-        // Execute callback after HTML is injected
-        if (typeof callback === "function") {
-          callback();
-        }
-      } else {
-        console.error(`Container with ID "${id}" not found`);
-      }
-    } catch (error) {
-      console.error(`Error loading ${file}:`, error);
+      const url = new URL(fileName, import.meta.url); // relative to THIS JS file
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(`Failed to load ${url} (${res.status})`);
+
+      slot.innerHTML = await res.text();
+
+      if (typeof callback === "function") callback();
+    } catch (err) {
+      console.error(`[inject] ${fileName}`, err);
     }
   };
 
-  // Inject announcement bar + fade logic
-  inject("announcement-bar-container", "layout/announcement-bar.html", () => {
+  inject("announcement-bar-container", "./announcement-bar.html", () => {
     const messages = document.querySelectorAll(".announcement-messages p");
     let index = 0;
 
-    if (messages.length > 0) {
+    if (messages.length) {
       messages[0].classList.add("active");
-
       setInterval(() => {
         messages[index].classList.remove("active");
         index = (index + 1) % messages.length;
@@ -40,10 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Inject Navigation Bar
-    inject("navigation-bar-container", "layout/navigation-bar.html");
-  
-  // Inject Footer
-    inject("footer-container", "layout/footer.html");
-
+  inject("navigation-bar-container", "./navigation-bar.html");
+  inject("footer-container", "./footer.html");
 });
