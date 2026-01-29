@@ -3,19 +3,18 @@
 <head>
   <!-- ========== Basic Setup ========== -->
   <meta charset="UTF-8" />
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/x-icon" href="favicon_circle.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="/favicon_circle.ico">
   <title>Golden By Daisy</title>
 
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#ffffff">
 
   <!-- ========== Fonts, Icons & Styling ========== -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles/styles.css">
-  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/styles/responsive.css">
   <style>
     .review-form-section {
       background-color: white;
@@ -153,7 +152,7 @@
           <h2 class="review-title">Leave a Review</h2>
         
           <div id="review-product-info" class="review-product-info">
-            <img id="product-image" src="placeholder.jpg" alt="Product"/>
+            <img id="product-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Product"/>
             <p id="product-name">Product Name</p>
             <p id="review-product-size">Size: -</p>
           </div>
@@ -203,32 +202,28 @@
 </div>
 
   <!-- Loading Transition -->
-  <script src="loading.js" defer></script>
+  <script src="/loading.js" defer></script>
 
-  <script type="module" src="review/reviews.js"></script>
+  <script type="module" src="/review/reviews.js"></script>
 
   <!-- Load Page Layout -->
-  <script src="layout/load-layout.js" type="module"></script>
+  <script src="/layout/load-layout.js" type="module"></script>
 
   <!-- 'User' Toggle Btn -->
-  <script type="module" src="user-toggle.js"></script>
+  <script type="module" src="/user-toggle.js"></script>
 
   <!-- Basket Dropdown Btn -->
-  <script type="module" src="basket-dropdown.js"></script>
+  <script type="module" src="/basket-dropdown.js"></script>
   
-  <script type="module" src="firebase.js"></script>
+  <script type="module" src="/firebase.js"></script>
 
   <!-- Load Marquee Images -->
-  <script type="module" src="marquee.js"></script>
+  <script type="module" src="/marquee.js"></script>
 
   <!-- Admin Features -->
-  <script type="module" src="admin-auth.js"></script>
-
-  <!-- Import Products List -->
-  <script type="module" src="products.js"></script>
-
-  <!-- Maintenance Page If Toggled In Dashboard -->
-  <script type="module" src="maintenance.js"></script>
+<!-- Import Products List -->
+<!-- Maintenance Page If Toggled In Dashboard -->
+  <script type="module" src="/maintenance.js"></script>
 
   <script>
   if ('serviceWorker' in navigator) {
@@ -268,7 +263,7 @@
 </script>
 
   <!-- Cookie Banner -->
-<script src="cookie-banner/load-cookie-banner.js"></script>
+<script src="/cookie-banner/load-cookie-banner.js"></script>
   
 </body>
 </html>

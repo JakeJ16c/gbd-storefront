@@ -1,5 +1,5 @@
 // Import Firebase setup and needed functions
-import { auth, db } from './firebase.js';
+import { auth, db } from "/firebase.js";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js';
 import { doc, setDoc, collection, addDoc, getCountFromServer } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js';
 

@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 import { collection, doc, getDoc, getDocs, setDoc, deleteDoc, updateDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
-import { auth, db, functions } from "./firebase.js";
+import { auth, db, functions } from "/firebase.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-functions.js";
 
 let currentUser = null;
