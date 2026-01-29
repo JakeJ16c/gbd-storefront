@@ -4,7 +4,6 @@ const loaderHTML = `
     <div class="loader-inner">
       <div class="spinner-wrapper">
         <div class="spinner"></div>
-        <img src="favicon_circle.ico" class="logo-inside-spinner" />
       </div>
       <p class="loading-text">Loading...</p>  
     </div>
@@ -69,18 +68,6 @@ style.textContent = `
     border-top-color: #204ECF;
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
-  }
-  
-  .logo-inside-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-43%, -43%);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: contain;
-    pointer-events: none;
   }
 
   @keyframes spin {
